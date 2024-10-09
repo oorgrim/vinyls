@@ -1,5 +1,17 @@
-{% extends 'base/base.html' %}
-
+{% extends "base/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Профиль" %}{% endblock %}
 {% block content %}
-    <h1>Profile</h1>
+<h2>{% trans "Профиль пользователя" %}</h2>
+<p>{% trans "Добро пожаловать" %}, {{ user.username }}!</p>
+<h3>{% trans "Ваши заказы" %}:</h3>
+<ul>
+{% for order in orders %}
+<li>{% trans "Заказ №" %}{{ order.id }} {% trans "от" %} {{ order.created_at }}</li>
+{% empty %}
+<li>{% trans "У вас нет заказов." %}</li>
+{% endfor %}
+</ul>
+<p><a href="{% url 'users:password_change' %}">{% trans "Сменить пароль" %}</a></p>
+</p>
 {% endblock %}
